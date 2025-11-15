@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "SugusGamberra",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@fancyapps/ui": "^6.1.5",
     "dotenv": "^17.2.3",
