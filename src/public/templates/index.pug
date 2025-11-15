@@ -1,0 +1,42 @@
+extends components/layout
+
+block content 
+    // Contenedor principal del slideshow
+    .slideshow
+        // Slide 1
+        .slide.active
+            .slide__img(style="background-image: url(/img/tattoo1.png)")
+            .slide__text
+                span.slide__text-line DAUT
+                span.slide__text-line TATTOO
+    
+        // Slide 2
+        .slide
+            .slide__img(style="background-image: url(/img/tattoo2.png)")
+            .slide__text
+                span.slide__text-line DISEÑO
+                span.slide__text-line ÚNICO
+            
+        // Slide 3
+        .slide
+            .slide__img(style="background-image: url(/img/tattoo3.png)")
+            .slide__text
+                span.slide__text-line ARTE
+                span.slide__text-line EN PIEL
+
+        // Slide 4
+        .slide
+            .slide__img(style="background-image: url(/img/tattoo4.png)")
+            .slide__text
+                span.slide__text-line TU ESTILO
+                span.slide__text-line NUESTRA PASIÓN
+
+    // Controles y UI
+    .controls
+        .controls-text SCROLL
+
+    .slide-counter
+        .counter-container
+            .counter-strip
+        .counter-separator
+        .counter-total 04

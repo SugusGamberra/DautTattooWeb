@@ -1,0 +1,64 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap", rel="stylesheet")
+        
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css")
+        
+        link(rel="stylesheet", href="/css/style.css")
+        link(rel="stylesheet", href="/css/components/testimonials.css")
+
+        if title === "Daut Tattoo - Inicio"
+            link(rel="stylesheet", href="/css/pages/home.css")
+        else if title === "Daut Tattoo - Galería"
+            link(rel="stylesheet", href="/css/pages/gallery.css")
+        else if title === "Daut Tattoo - Contacto"
+            link(rel="stylesheet", href="/css/pages/contact.css")
+        else if title === "Daut Tattoo - Gracias"
+            link(rel="stylesheet", href="/css/pages/gracias.css")
+
+        title=title 
+
+    body(class= (title === "Daut Tattoo - Inicio" ? "page-home" : (title === "Daut Tattoo - Galería" ? "page-gallery" : (title === "Daut Tattoo - Contacto" ? "page-contact" : (title === "Daut Tattoo - Gracias" ? "page-gracias" : "")))))
+        header.main-header 
+            nav.main-nav 
+                //- poner la img cuando tenga el logoooo!!!
+                a.main-nav__logo(href="/") DAUT TATTOO 
+
+                ul.main-nav__list 
+                    li 
+                        a(href="/") Home 
+                    li 
+                        a(href="/galeria") Galeria 
+                    li 
+                        a(href="/contacto") Contacto 
+
+        main.main-content 
+            block content 
+
+        footer.main-footer
+            .footer-content
+                p.footer-copyright &copy; 2025 Daut Tattoo. Todos los derechos reservados.
+                .footer-links
+                    a(href="https://www.instagram.com/daut.tattoo", target="_blank", rel="noopener noreferrer", aria-label="Instagram")
+                        svg(viewBox="0 0 24 24", width="22", height="22", fill="none", stroke="currentColor", stroke-width="1.5", stroke-linecap="round", stroke-linejoin="round")
+                            rect(x="2", y="2", width="20", height="20", rx="5", ry="5")
+                            path(d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z")
+                            line(x1="17.5", y1="6.5", x2="17.51", y2="6.5")
+
+                    a(href="https://github.com/SugusGamberra", target="_blank", rel="noopener noreferrer") 🎀 Creado por SugusGamberra 🎀
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/InertiaPlugin.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js")
+
+        script(src="js/script.js")

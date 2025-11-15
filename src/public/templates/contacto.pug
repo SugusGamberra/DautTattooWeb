@@ -1,0 +1,25 @@
+extends components/layout
+
+block content 
+    .container 
+        .form-container
+            h1 Formulario de contacto 
+            p Cuéntame tu idea y te agendamos una cita para darte un presupuesto detallado.
+            br
+            hr
+            br
+        
+            // POST formulario
+        
+            form.contact-form(action="/contacto" method="POST")
+                .form-group
+                    label(for="name") Nombre:
+                    input#name(type="text" name="name" required)
+                .form-group
+                    label(for="email") Email:
+                    input#email(type="email" name="email" required)
+                .form-group
+                    label(for="message") Mensaje:
+                    textarea#message(name="message" rows="5" required)
+                .form-group(style="text-align: center;") 
+                    button(type="submit", class="form-button") Enviar Mensaje
