@@ -1,0 +1,13 @@
+extends components/layout
+
+block content 
+    .container
+        .gracias-mensaje
+            h1 ¡UPS! ALGO HA FALLADO
+            p Ha surgido un error con el envio del formulario, por favor intentelo mas tarde.
+            
+            p(style="margin-top: 2.5rem;") Mientras, puedes volver a la galería o intentarlo de nuevo:
+            
+            div(style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;")
+                a(href="/galeria", class="btn-gracias") Ver Galería
+                a(href="/contacto", class="btn-gracias") Intentar de nuevo
