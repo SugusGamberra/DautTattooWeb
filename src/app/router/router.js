@@ -19,16 +19,16 @@ router.get("/contacto", (req, res) => {
 });
 
 // POST contacto
-router.post("/contacto", (req, res, next) => {
-    res.redirect("/gracias")
-    next()
+router.post("/contacto", (req, res) => {
+    const{ name, email, message} = req.body;
+    console.log("Datos recibidos: ", name, ", ", email, ", ", message);
+    res.redirect("/gracias");
 })
 
 // GET gracias
 
-router.get("/gracias", (req, res, next) => {
-    res.render("gracias", { title: "Daut Tattoo - Gracias" })
-    next()
+router.get("/gracias", (req, res) => {
+    res.render("gracias", { title: "Daut Tattoo - Gracias" });
 })
 
 module.exports = router;
