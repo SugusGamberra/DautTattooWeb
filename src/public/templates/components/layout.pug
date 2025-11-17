@@ -1,5 +1,9 @@
+//- definimos la estructura comun que comparten tooodas las paginas webs, es algo que amo de .pug: me lo pone facil para modularizar y para el tecle tecle xd
+
 doctype html
 html(lang="es")
+
+    //- definimos los metadatos, viewport (multidispositivo) e importa las fuentes que usare para la web
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -8,12 +12,16 @@ html(lang="es")
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap", rel="stylesheet")
         
+        //- esto son estilos externos para el slideshow y fancybox para la galeria desde un cdn (servidor externo)
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css")
         
+        //- mis css locales, que x si uso el de testimonials mas adelante en mas sitios pues ahi lo dejo hahaha
         link(rel="stylesheet", href="/css/style.css")
         link(rel="stylesheet", href="/css/components/testimonials.css")
 
+        //- con esto cargo una hoja de estilos SOLO si la pagina en la que estas coincide con el title (que se lo di desde router.js)
+        //- de esta forma la pagina de contacto no descarga el css del home y asi con todo
         if title === "Daut Tattoo - Inicio"
             link(rel="stylesheet", href="/css/pages/home.css")
         else if title === "Daut Tattoo - Galería"
@@ -27,19 +35,23 @@ html(lang="es")
 
         title=title 
 
+    //- añado una clase css al cuerpo SEGUn la pagina en  la que estoy
+    //- esto me permite hacer que el header sea de x forma mientras que en el resto es de y forma
     body(class= (title === "Daut Tattoo - Inicio" ? "page-home" : (title === "Daut Tattoo - Galería" ? "page-gallery" : (title === "Daut Tattoo - Contacto" ? "page-contact" : (title === "Daut Tattoo - Gracias" ? "page-gracias" : "")))))
+        //- define toooda la cabecera de la web:
+        //- el logo (que de momento es texto hasta que mi amigo me pase su png)
         header.main-header 
             nav.main-nav 
                 //- poner la img cuando tenga el logoooo!!!
                 a.main-nav__logo(href="/") DAUT TATTOO 
 
-                //- MENU HAMBURGUESA PAL MOVIL
+                //- MENU HAMBURGUESA PAL MOVIL: esto solo se ve en el movil
                 .hamburger-menu(id="hamburger-btn")
                     span.hamburger-menu__line
                     span.hamburger-menu__line
                     span.hamburger-menu__line
 
-                //- AÑADIMOS UN ID AL MENÚ (para el JS)
+                //- AÑADIMOS UN ID AL MENÚ (para el JS): la lista d enlaces de navegacion, le puse ese ID para que el JS sepa que menu mostrar u ocultar
                 ul.main-nav__list(id="mobile-menu")
                     li 
                         a(href="/") Home 
@@ -48,21 +60,28 @@ html(lang="es")
                     li 
                         a(href="/contacto") Contacto
 
+        //- por lo que amo .pug: es como un marcador de posicion, un hueco que le creamos
+        //- cuando en otro lado ponemos extends components/layout y leugo block content, todo lo que escriba ahi debajo se inyecta dentro del main
         main.main-content 
             block content 
 
+        //- el pie de pagina, que lo use para el copyright (inventadisimo pero queda wapo), enlace al ig de mi amigo y a mi github jeje
         footer.main-footer
             .footer-content
                 p.footer-copyright &copy; 2025 Daut Tattoo. Todos los derechos reservados.
                 .footer-links
                     a(href="https://www.instagram.com/daut.tattoo", target="_blank", rel="noopener noreferrer", aria-label="Instagram")
+                        //-es el icono de ig dibujado directamente aqui 
+                        //- lo tome de aqui https://package.elm-lang.org/packages/1602/elm-feather/1.0.0/FeatherIcons#instagram
+                        //- y le cambie el ancho del delineado
                         svg(viewBox="0 0 24 24", width="22", height="22", fill="none", stroke="currentColor", stroke-width="1.5", stroke-linecap="round", stroke-linejoin="round")
                             rect(x="2", y="2", width="20", height="20", rx="5", ry="5")
                             path(d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z")
-                            line(x1="17.5", y1="6.5", x2="17.51", y2="6.5")
+                            line(x1="17.5", y1="6.5", x2="17.5", y2="6.5")
 
                     a(href="https://github.com/SugusGamberra", target="_blank", rel="noopener noreferrer") 🎀 Creado por SugusGamberra 🎀
 
+        //- aqui cargo todas las libreerias de JS que he ido usando para animaciones y tal
         script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js")
@@ -70,4 +89,5 @@ html(lang="es")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/InertiaPlugin.min.js")
         script(src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js")
 
+        //- y aqui cargo mi js principal, lo pongo el ultimo para que la pagina se cargue y se vea antes de que el navegador tenga q procesarlo
         script(src="js/script.js")
