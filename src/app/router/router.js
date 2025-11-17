@@ -1,20 +1,17 @@
 const router = require("express").Router();
-const { ApiClient, TransactionalEmailsApi } = require("@getbrevo/brevo");
+const SibApiV3Sdk = require('sib-api-v3-sdk');
 
 // GET para home
-
 router.get("/", (req, res) => {
     res.render("index", { title: "Daut Tattoo - Inicio" });
 });
 
 // GET galeria
-
 router.get("/galeria", (req, res) => {
     res.render("galeria", { title: "Daut Tattoo - Galería" });
 });
 
 // GET contacto
-
 router.get("/contacto", (req, res) => {
     res.render("contacto", { title: "Daut Tattoo - Contacto" });
 });
@@ -24,11 +21,17 @@ router.get("/error", (req, res) => {
     res.render("error", { title: "Daut Tattoo - Error" });
 });
 
+// GET gracias
+router.get("/gracias", (req, res) => {
+    res.render("gracias", { title: "Daut Tattoo - Gracias" });
+});
+
 // POST contacto
 router.post("/contacto", async (req, res) => {
     const{ name, email, message} = req.body;
     console.log("Datos recibidos: ", name, ", ", email, ", ", message);
     
+    // html pal email
     const fondo = "#1a1a1a";
     const tarjeta = "#252525";
     const texto = "#F0F0F0";
@@ -99,12 +102,10 @@ router.post("/contacto", async (req, res) => {
     </body>
     `;
     
-    const client = ApiClient.instance;
-    
+    const client = SibApiV3Sdk.ApiClient.instance;
     const apiKey = client.authentications['api-key'];
     apiKey.apiKey = process.env.BREVO_API_KEY;
-
-    const transacEmailApi = new TransactionalEmailsApi();
+    const transacEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 
     const sender = {
         email: process.env.EMAIL_TO,
@@ -115,13 +116,12 @@ router.post("/contacto", async (req, res) => {
         { email: process.env.EMAIL_TO },
     ];
 
-    const sendSmtpEmail = {
-        sender: sender,
-        to: receivers,
-        replyTo: { email: email, name: name },
-        subject: `Nuevo mensaje de ${name} desde la web`,
-        htmlContent: htmlEmail,
-    };
+    const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); 
+    sendSmtpEmail.sender = sender;
+    sendSmtpEmail.to = receivers;
+    sendSmtpEmail.replyTo = { email: email, name: name };
+    sendSmtpEmail.subject = `Nuevo mensaje de ${name} desde la web`;
+    sendSmtpEmail.htmlContent = htmlEmail;
 
     try {
         await transacEmailApi.sendTransacEmail(sendSmtpEmail);
@@ -129,14 +129,9 @@ router.post("/contacto", async (req, res) => {
         res.redirect("/gracias");
         
     } catch (error) {
-        console.error("¡ERROR al enviar el email (API)!:", error.message || error);
+        console.error("¡ERROR al enviar el email (API)!:", error.response ? error.response.text : (error.message || error));
         res.redirect("/error");
     }
-});
-
-// GET gracias
-router.get("/gracias", (req, res) => {
-    res.render("gracias", { title: "Daut Tattoo - Gracias" });
 });
 
 module.exports = router;
