@@ -78,3 +78,26 @@
     background-color: var(--color-texto);
     color: #111;
 }
+
+/* ESTILO PAL MOVIL*/
+
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 4rem;
+    }
+
+    .form-container {
+        height: auto; 
+        max-width: 90vw;
+        padding: 2rem 1.5rem;
+    }
+
+    .form-container h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-group textarea {
+        height: 150px;
+    }
+}

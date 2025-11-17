@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // estilo hamburguesa pal movil
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+    }
+
+    // navegador pc
     if (document.body.classList.contains("page-home")) {
         initHomeSlideshow(); 
     } else if (document.body.classList.contains("page-gallery")) {

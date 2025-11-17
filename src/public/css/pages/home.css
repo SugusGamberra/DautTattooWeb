@@ -165,3 +165,53 @@ body.page-home .main-footer {
     min-width: 2rem;
     text-align: left;
 }
+
+/* ESTILOS PAL MOVIl */
+
+@media (max-width: 768px) {
+    body.page-home .main-header,
+    body.page-home .main-footer {
+        padding: 1.5rem;
+        position: absolute;
+    }
+    
+    body.page-home .main-footer {
+        position: fixed;
+        bottom: 0;
+        text-align: center;
+    }
+
+    .controls {
+        display: none;
+    }
+
+    .slide__text {
+        left: 5vw;
+        bottom: 25vh;
+        max-width: 90vw;
+    }
+
+    .slide__text-line {
+        font-size: 14vw; 
+        letter-spacing: -0.05em;
+    }
+
+    .slide-counter {
+        display: none;
+    }
+
+    .counter-separator {
+        display: none;
+    }
+
+    .counter-total {
+        min-width: 0;
+        margin-left: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide__text-line {
+        font-size: 13vw;
+    }
+}
