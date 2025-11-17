@@ -59,3 +59,23 @@
 }
 
 /* branch: gracias */
+
+/* ESTILOS PAL MOVIL*/
+
+@media (max-width: 768px) {
+    .gracias-mensaje h1 {
+        font-size: 2rem;
+    }
+
+    .gracias-mensaje p {
+        font-size: 1rem;
+    }
+
+    .gracias-mensaje div {
+        flex-direction: column;
+    }
+
+    .btn-gracias {
+        width: 100%;
+    }
+}

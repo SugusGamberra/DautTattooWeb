@@ -33,13 +33,20 @@ html(lang="es")
                 //- poner la img cuando tenga el logoooo!!!
                 a.main-nav__logo(href="/") DAUT TATTOO 
 
-                ul.main-nav__list 
+                //- MENU HAMBURGUESA PAL MOVIL
+                .hamburger-menu(id="hamburger-btn")
+                    span.hamburger-menu__line
+                    span.hamburger-menu__line
+                    span.hamburger-menu__line
+
+                //- AÑADIMOS UN ID AL MENÚ (para el JS)
+                ul.main-nav__list(id="mobile-menu")
                     li 
                         a(href="/") Home 
                     li 
                         a(href="/galeria") Galeria 
                     li 
-                        a(href="/contacto") Contacto 
+                        a(href="/contacto") Contacto
 
         main.main-content 
             block content 
