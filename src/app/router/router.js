@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const nodemailer = require("nodemailer");
+const Brevo = require("@brevo/client");
 
 // GET para home
 
@@ -98,31 +98,31 @@ router.post("/contacto", async (req, res) => {
     </body>
     `;
 
-    const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
+    const transacEmailApi = new Brevo.TransactionalEmailsApi();
 
-    const mailOptions = {
-        from: process.env.EMAIL_FROM, // PONER AQUI TB EL EMAIL DE DAUT
-        to: process.env.EMAIL_TO, // PONER EMAIL DE DAUT CUANDO LO TENGA(o me corrija el profe para evitar leakeos jeje)
-        replyTo: email,
-        subject: `Nuevo mensaje de ${name} desde Daut Tattoo.`,
-        html: htmlEmail
+    const sender = {
+        email: process.env.EMAIL_TO,
+        name: "Web Daut Tattoo"
     };
 
+    const receivers = [
+        { email: process.env.EMAIL_TO },
+    ];
+
     try {
-        await transporter.sendMail(mailOptions);
-        console.log("Email enviado con éxito a Daut");
+        await transacEmailApi.sendTransacEmail({
+            sender: sender,
+            to: receivers,
+            replyTo: { email: email, name: name },
+            subject: `Nuevo mensaje de ${name} desde la web`,
+            htmlContent: htmlEmail,
+        });
+
+        console.log("Email enviado con éxito a Daut (vía API)");
         res.redirect("/gracias");
         
     } catch (error) {
-        console.error("¡ERROR al enviar el email!:", error);
+        console.error("¡ERROR al enviar el email (API)!:", error.message || error);
         res.redirect("/error");
     }
 });
