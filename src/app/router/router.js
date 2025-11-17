@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Brevo = require("@getbrevo/brevo");
+const { ApiClient, TransactionalEmailsApi } = require("@getbrevo/brevo");
 
 // GET para home
 
@@ -28,6 +28,7 @@ router.get("/error", (req, res) => {
 router.post("/contacto", async (req, res) => {
     const{ name, email, message} = req.body;
     console.log("Datos recibidos: ", name, ", ", email, ", ", message);
+    
     const fondo = "#1a1a1a";
     const tarjeta = "#252525";
     const texto = "#F0F0F0";
@@ -97,12 +98,13 @@ router.post("/contacto", async (req, res) => {
         </table>
     </body>
     `;
-
-    const client = Brevo.ApiClient.instance;
+    
+    const client = ApiClient.instance;
+    
     const apiKey = client.authentications['api-key'];
     apiKey.apiKey = process.env.BREVO_API_KEY;
 
-    const transacEmailApi = new Brevo.TransactionalEmailsApi();
+    const transacEmailApi = new TransactionalEmailsApi();
 
     const sender = {
         email: process.env.EMAIL_TO,
@@ -115,15 +117,14 @@ router.post("/contacto", async (req, res) => {
 
     const sendSmtpEmail = {
         sender: sender,
-        to: reveivers,
-        replyTo: {email: email, name: name},
+        to: receivers,
+        replyTo: { email: email, name: name },
         subject: `Nuevo mensaje de ${name} desde la web`,
         htmlContent: htmlEmail,
     };
 
     try {
         await transacEmailApi.sendTransacEmail(sendSmtpEmail);
-
         console.log("Email enviado con éxito a Daut (vía API)");
         res.redirect("/gracias");
         
