@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const router = require("./router/router");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -9,7 +10,7 @@ require("dotenv").config();
 
 app.set("port", process.env.PORT || 4040);
 
-const publicPath = __dirname.replace("app", "public");
+const publicPath = path.join(__dirname, "..", "public");
 app.set("views", `${publicPath}/templates`);
 
 app.set("view engine", "pug");
