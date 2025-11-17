@@ -2,15 +2,21 @@ extends components/layout
 
 block content
     .gallery-container
-    
+        //- titulito y parrafo de descirpcion
         .container
             h1 Galería
             p Explora nuestra galería para descubrir tatuajes brutales creados por nuestro talentoso Daut. Desde diseños complejos a líneas más afiladas que el eyeliner de tu ex... Este protfolio muestra creatividad hecha realidad.
 
-        //- contenedor para gsap draggable
+        //- contenedor para la galeria
+            este es el exterior que el js usara para activar ese croll infinito con gsap
         .draggable-gallery
+            //- contenedor interior que se mueve horizontalmente (para el carrusel)
             .gallery-inner
-                
+                //- los galery-card son las tarjetitas individuales con cada foto
+                    como ve enlaza la imagen, le meto el fancybox que imagen debe abrir cuando se le pinche
+                    que lo del fancybox es genial xk lo cargamos desde el layout, al clicar en la imagen en vez de ir a la url
+                    abre la imagen en una ventana modal, como todas las tarjetas tienen el valor "gallery" fancybox las agrupa y navegamos entre ellas con las flechitas
+                    Le meto tambien el textito de la foto y el titulito de cada tattoo, y asi con todas las tarjetas
                 // Tarjeta 1
                 .gallery-card
                     a(href="/img/tattoo1.png" data-fancybox="gallery" data-caption="Cabeza del EVA-01 en blanco y negro")

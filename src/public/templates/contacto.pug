@@ -3,6 +3,7 @@ extends components/layout
 block content 
     .container 
         .form-container
+            //- titulo y parrafo de la pagina
             h1 Formulario de contacto 
             p Cuéntame tu idea y te agendamos una cita para darte un presupuesto detallado.
             br
@@ -10,9 +11,16 @@ block content
             br
         
             // POST formulario
+            //- con action=/contacto le dice al navegador que cuando se pulse enviar en el formulario debe mandar los datos a la URL /contacto de la web
+                le indicamos que use el metodo post para esto x lo que explicaste en clases, para estas cosas mejor post
+                este combo es lo que router.js espera escuchar, asi se conectan
         
             form.contact-form(action="/contacto" method="POST")
+                //- divisor para agrupar cada etiqueta y su campo y darle el estilo despues
                 .form-group
+                    //- con la label(for="blablabla") vinculamos con el input de id="blablabla", segun sea
+                        el input#blabla es para que el valor que le pongamos es el nombre de la caja donde se guarda el dato para recuperar el valor en router.js (req.body)
+                        el required es un campo obligatorio a rellenar, ene ste caso todos HAHAHAH hice un form sencillito para poder lucirme con el resto :,3
                     label(for="name") Nombre:
                     input#name(type="text" name="name" required)
                 .form-group
@@ -21,5 +29,6 @@ block content
                 .form-group
                     label(for="message") Mensaje:
                     textarea#message(name="message" rows="5" required)
-                .form-group(style="text-align: center;") 
+                .form-group(style="text-align: center;")
+                    //- el boton de envio, con el submit para que coja todos los datos del form y los envie al action definido en /contacto
                     button(type="submit", class="form-button") Enviar Mensaje

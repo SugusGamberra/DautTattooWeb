@@ -1,3 +1,6 @@
+/* me he creado variables de diseño para usarlas de forma facil
+lo guay de esto que si quiero cambiar un color de algo no tengo que ir uno x uno cambiando
+lo toco desde aqui y listo! */
 :root {
     --color-fondo: #1a1a1a;
     --color-fondo-secundario: #252525;
@@ -8,17 +11,20 @@
     --fuente-cuerpo: "Roboto", sans-serif;
 }
 
+/* reseteo universal para que el padding y border no ensanchen las cajas y que el margin y el padding esten en 0 */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* defino el tamaño de la fuente y activo el scroll-behaviour para q los enlaces de ancla sean suaves*/
 html {
     scroll-behavior: smooth;
     font-size: 16px;
 }
 
+/* estilos por defecto de toda la web: fuente del cuerpo, color de fondo y texto*/
 body {
     font-family: var(--fuente-cuerpo);
     background-color: var(--color-fondo);
@@ -28,12 +34,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* clase para centrar el contenido en las paginas y darle un ancho determinadp*/
 .container {
     max-width: 1100px;
     margin: 2rem auto;
     padding: 0 1.5rem;
 }
 
+/* la barrita superior*/
 .main-header {
     background-color: transparent;
     padding: 2.5rem 2.5rem;
@@ -42,7 +50,8 @@ body {
     z-index: 100;
 }
 
-/* estilos para menu hamburguesa (movil) */
+/* estilos para menu hamburguesa (movil) 
+con el display: none me aseguro q en pc esto no se ve, se ve SOLO en el movil*/
 .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -53,6 +62,7 @@ body {
     z-index: 101;
 }
 
+/* el menu del movil, de las 3 rayitas, con una transicion para que el cambio sea animado*/
 .hamburger-menu__line {
     width: 100%;
     height: 3px;
@@ -61,6 +71,11 @@ body {
     transition: all 0.3s ease;
 }
 
+/* cuando el js añade .open al boton:
+la linea 1 rota 45 grados y se desplaza
+la linea 2 se vuelve invisible
+y la 3 rota -45grados y se desplaza
+segun le pinchas las 3 lineas se transforman en la x jiji*/
 .hamburger-menu.open .hamburger-menu__line:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -71,7 +86,7 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-
+/* contenedor que usa display flex, justify content con espacio entre medio para poner logo a la izq y enlaces a la dcha*/
 .main-nav {
     display: flex;
     justify-content: space-between;
@@ -80,6 +95,7 @@ body {
     margin: 0 auto;
 }
 
+/*como no tengo aun el png del logo pues lo pongo en texto y que vaya acorde a la fuente de la pagina y al estilo*/
 .main-nav__logo {
     font-family: var(--fuente-titulos);
     font-weight: 700;
@@ -89,6 +105,7 @@ body {
     letter-spacing: 1px;
 }
 
+/* lista de enlaces, en pc se muestra como displayflex*/
 .main-nav__list {
     list-style: none;
     display: flex;
@@ -110,6 +127,8 @@ body {
     text-decoration: none;
 }
 
+/* el pie de pagina con display flex y justifycontent con espacio entre medios
+copyright a la izq y enlaces sociales a la dcha*/
 .main-footer {
     padding: 2rem 2.5rem;
     margin-top: 4rem;
@@ -151,55 +170,10 @@ body {
     display: block;
 }
 
-/* index */
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 60vh;
-    padding: 6rem 1.5rem 2rem 1.5rem;
-}
-
-.hero__title {
-    font-family: var(--fuente-titulos);
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--color-texto);
-}
-
-.hero__subtitle {
-    font-size: 1.25rem;
-    color: var(--color-texto-secundario);
-    font-weight: 300;
-    margin-bottom: 2.5rem;
-    cursor: pointer;
-    max-width: 500px;
-}
-
-.hero__button {
-    display: inline-block;
-    background-color: var(--color-acento);
-    color: var(--color-texto);
-    padding: 0.9rem 2rem;
-    text-decoration: none;
-    font-weight: 700;
-    font-family: var(--fuente-cuerpo);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    border-radius: 2px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.hero__button:hover {
-    background-color: #fff;
-    color: #111;
-    transform: translateY(-3px);
-}
-
-/* ESTILOS PAL MOVIL */
+/* ESTILOS PAL MOVIL 
+con esto especificamos que si la pantalla del user es mas pequeña de 768px que aplique el menu hamburguesa,
+que se oculte el menu del pc, con la posicion fixed y que ocupe toda la pantalla y que el footer
+se ponga en column para que se vea bien en vertical*/
 
 @media (max-width: 768px) {
     

@@ -2,7 +2,7 @@
   "name": "daut-tattoo",
   "version": "1.0.0",
   "description": "**Versión:** 1.0\r **Fecha:** 13.11.2025\r **Autor:** SugusGamberra",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",

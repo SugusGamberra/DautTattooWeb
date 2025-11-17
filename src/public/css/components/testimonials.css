@@ -1,3 +1,7 @@
+/* esto es solo un trocito reutilizable que se carga en todas las paginas, pero su contenido solo lo he peusto
+en gracias.pug*/
+
+/* seccion completa, la separo del mensaje de gracias con un borde superior y bien de espacio*/
 .testimonial-section {
     width: 100%;
     margin-top: 4rem;
@@ -5,12 +9,14 @@
     padding-top: 4rem;
 }
 
+/* con esto creo la parrilla de 2 columnas de tamaño identico para poner los testimonios inventadisimos HAHAHAH*/
 .testimonial-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
 
+/* uso el colorcito de fondo del formulario, y bueno estilizo las tarjetas*/
 .testimonial-card {
     background-color: var(--color-fondo-secundario);
     border: 1px solid rgba(240, 240, 240, 0.1);
@@ -45,7 +51,8 @@
     line-height: 1.6;
 }
 
-/* ESTILO PAL MOVIL*/
+/* ESTILO PAL MOVIL
+el grid que cambie de 2 a 1 columna para que se apilen los testimonios en vertical*/
 
 @media (max-width: 768px) {
     .testimonial-grid {

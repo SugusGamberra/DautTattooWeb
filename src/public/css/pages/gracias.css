@@ -1,3 +1,8 @@
+/* este lo usa gracias.pug y error.pug, se quedo como gracias.css porque en un inicio no le ponia la pagina de
+error pero al final si jjiji*/
+
+/* centro el contenido horizontal y verticalmente, le doy una altura minima para que el centrado vertical funcione
+bien aunque el mensaje sea cortito*/
 .main-content {
     display: flex;
     justify-content: center;
@@ -10,6 +15,8 @@
     animation: blur-in 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
+/* hago una animacion blurry, empieza estando borroso y ligeramente desplazado y termina nitido y en su
+posicion original*/
 @keyframes blur-in {
     from {
         filter: blur(15px);
@@ -35,6 +42,7 @@
     font-weight: 300;
 }
 
+/* estilizo los botones, mismo estilo que el de contact.css*/
 .btn-gracias {
     display: inline-block;
     width: auto;
@@ -58,7 +66,7 @@
     color: #111;
 }
 
-/* branch: gracias */
+/* branch: gracias , ignora esto que es pal github y no liarme con los branchs HAHAHAH*/
 
 /* ESTILOS PAL MOVIL*/
 

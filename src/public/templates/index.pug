@@ -1,11 +1,21 @@
+//- este es mi archivo de la pagina de inicio al q siempre nombro como index
+    Aqui le indicamos  con el extends lo que explique en el layout: extiendeme lo de layout aqui
+    y a partir del block le añado yo mi purpurina jeje
+
 extends components/layout
 
 block content 
     // Contenedor principal del slideshow
     .slideshow
+        //- cada uno de los .slide es un fotograma
+            .slide.active es para que sea el primero q cargue la web, el resto esta sin el .active
         // Slide 1
         .slide.active
+            //- aqui le paso la ruta de la foto a usar, gracias a mi index.js q le dijimos que public sea la raiz
+                por lo que el navegador comprende que img/blablabla es src/public/img
             .slide__img(style="background-image: url(/img/tattoo1.png)")
+            //- contenedor del texto
+                cada linea del texto lo meti en un span para meterle animacion individualmente
             .slide__text
                 span.slide__text-line DAUT
                 span.slide__text-line TATTOO
@@ -32,11 +42,18 @@ block content
                 span.slide__text-line NUESTRA PASIÓN
 
     // Controles y UI
+    //- con esto le pongo en la version web para pc un textito para que el user haga scroll con la ruedita
+        del raton, asi ve la animacion wapa
     .controls
         .controls-text SCROLL
 
+    //- este es el contador, segun en el fotograma que estes te dice cual es
+        con el .counter-strip que es un div inteligente, en el js lo rellena con los numeros (del 1 al 4) segun
+        donde estes, y luego anima esa tira (strip) para que se mueva verticalmente como los contadoeres estos
+        analogicos antiguos
     .slide-counter
         .counter-container
             .counter-strip
         .counter-separator
+        //- le indico el numero total de slides
         .counter-total 04

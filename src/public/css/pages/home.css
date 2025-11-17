@@ -1,3 +1,10 @@
+/* posiciono los elementos slideshow, controls y slidecounter fijos en pantalla, defino el estado inicial de las
+animaciones como los textos ocultos que el script.js se encarga de mover
+todo lo q tenga z-index 1 es que queda abajo del todo y z-index 100 o mas queda arriba, como si fueran capas de photoshop
+*/
+
+/* con esto solo cambio los estilos del header y footer en esta pagina, con posicion fixed y sin color de fondo
+por eso el menu de home flota sobnre el slideshow, y en el resto si que tiene fondito*/
 body.page-home .main-header {
     position: fixed;
     top: 0;
@@ -23,6 +30,7 @@ body.page-home .main-footer {
     background-color: transparent;
 }
 
+/* posicion fijada de mi slide, que ocupe toda la pantalla y lo pongo detras de todo lo demas con z-index:1*/
 .slideshow {
     position: fixed; 
     top: 0;
@@ -33,6 +41,7 @@ body.page-home .main-footer {
     z-index: 1;
 }
 
+/* apila las diapos una encima de otra e invisibles*/
 .slide {
     position: absolute;
     top: 0;
@@ -44,10 +53,12 @@ body.page-home .main-footer {
     transform-origin: center;
 }
 
+/* enciende una diapo cuando el js añade la clase active, asi pasamos a visibility visible y lo podemos ver*/
 .slide.active {
     visibility: visible;
 }
 
+/* para la animacion de zoom en GSAP, al haceerle zoom rellena toda la pantalla sin dejar bordes vacios*/
 .slide__img {
     position: absolute;
     top: -10%;
@@ -60,6 +71,8 @@ body.page-home .main-footer {
     transform-origin: center;
 }
 
+/* uso un pseudoelemento para darle un gradiente lineal sutil encima de la imagen, para oscurecer la parte inferior
+y que el texto resalte mas*/
 .slide__img::after {
     content: "";
     position: absolute;
@@ -83,6 +96,9 @@ body.page-home .main-footer {
     z-index: 5;
 }
 
+/* la animacion del texto, el estado inicial  cada linea de texto esta fuera de la caja y movida 100% hacia abajo siendo invisible
+el overflow de arribita es la mascara que lo oculta
+y el js anima estas propiedades a que la Y sea 0 y la opacidad a 1 creando el efecto ese de que aparece*/
 .slide__text-line {
     display: block;
     font-family: var(--fuente-titulos);
@@ -102,6 +118,7 @@ body.page-home .main-footer {
     }
 }
 
+/* posicionan el texto scroll y el contador con posicion fixced para que queden pegados en la pantalla*/
 .controls {
     position: fixed;
     top: 2.5rem;
@@ -132,6 +149,7 @@ body.page-home .main-footer {
     color: var(--color-texto);
 }
 
+/* ventana para la animacion del numero, el js solo muyeve el counter-strip por detras de esta ventanita*/
 .counter-container {
     position: relative;
     min-width: 2rem;
@@ -166,7 +184,8 @@ body.page-home .main-footer {
     text-align: left;
 }
 
-/* ESTILOS PAL MOVIl */
+/* ESTILOS PAL MOVIl 
+como dije oculto el texto de scroll en movil y el contador, ajusto el tamaño de la letra y la posicion */
 
 @media (max-width: 768px) {
     body.page-home .main-header,
