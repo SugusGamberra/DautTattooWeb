@@ -1,3 +1,5 @@
+/* defino la apariencia del carrusel de la galeria y personalizo el lightbox de fancybox*/
+
 .main-content {
     min-height: 75vh;
     display: flex;
@@ -8,6 +10,7 @@
     position: relative;
 }
 
+/* contenedor principal del texto y el carrusel*/
 .gallery-container {
     width: 100%;
     padding: 4rem 0;
@@ -16,6 +19,7 @@
     align-items: center;
 }
 
+/* estilizo el bloque de texto del h1 y el parrafo*/
 .gallery-container .container {
     text-align: center;
     margin-bottom: 3rem;
@@ -37,6 +41,10 @@
     margin: 0 auto;
 }
 
+/* divisor exterior, le doy altura fija y que el overflow este oculto
+con ello consigo que recorte todo lo que se salga de ese esppacio
+de paso le meto el cursor grab que es la manita que ve el usuario cuando pasa el raton x encima y el js lo cambia a
+grabbing al arrastrar*/
 .draggable-gallery {
     width: 100%;
     height: 450px;
@@ -50,6 +58,8 @@
     cursor: grabbing;
 }
 
+/* este es el que contiene todas las tarjetas (8 originales y 8 de clones), con displayflex para que se pongan en fila
+y position absolute para que el js pueda animar su propuedad left o transform*/
 .gallery-inner {
     display: flex;
     height: 100%;
@@ -59,6 +69,7 @@
     will-change: transform;
 }
 
+/* el aspecto de cada tarjeta individual, le da ancho fijo, sombra (box-shadow( y el overflow hidden*/
 .gallery-card {
     flex-shrink: 0;
     width: 350px;
@@ -86,10 +97,13 @@
     transition: transform 0.4s ease-out;
 }
 
+/*al pasar el raton x encima la imagen de dentro se escala, x el overflow hidden la imagen hace zoom pero no se
+sale del marquito, soy fan de los hovers tambien*/
 .gallery-card:hover img {
     transform: scale(1.1);
 }
 
+/* estilizo el titulo dentro de la tarjeta, con un degradado oscuro que se lea bien sobre la foto*/
 .gallery-card__caption {
     position: absolute;
     bottom: 0;
@@ -120,6 +134,8 @@
     display: none !important;
 }
 
+/* con esto personalizo una libreria externa
+fancybox tiene sus estilos, con esto los sobreescribo para que el caption tenga la apariencia de mi web*/
 .fancybox__slide .fancybox-custom-caption {
     position: absolute;
     bottom: 2rem;
@@ -161,7 +177,8 @@
     background: none;
 }
 
-/* ESTILOS PAL MOVIL*/
+/* ESTILOS PAL MOVIL
+reduzco tamaños para que quepa mejor en el movil*/
 @media (max-width: 768px) {
     .gallery-container {
         padding: 2rem 0;

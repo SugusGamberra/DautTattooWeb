@@ -1,8 +1,13 @@
+// podria haber modularizado el script tambien pero como ya mas o menos me olia que no iba a quedar muy largo pues...
+// pero si, hubiera sido una buena practica :P
+
+// puerta de entrada: basicamente no ejecuta nada hasta que el html este cargado, para evitar errores o que se quede buscando un boton que no se ha pintado en pantalla
 document.addEventListener("DOMContentLoaded", () => {
-    // estilo hamburguesa pal movil
+    // estilo hamburguesa pal movil (los ids que puse en layout se ven aqui jeje)
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
+    // si el boton recibe un click se abre el menu en el movil
     if (hamburgerBtn && mobileMenu) {
         hamburgerBtn.addEventListener('click', () => {
             hamburgerBtn.classList.toggle('open');
@@ -11,6 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // navegador pc
+    // si el cuerpo tiene la clase page-home llama a la funcion initHomeSlidewshow
+    // si contiene page-gallery llama a initAutoScrollGallery
+    // y si no se cumple ninguna de las aanteriores le mete el script origianl
+    // con esto evitamos que desde cualquier lado se llamen los scripts que no tocan, ya que si llamo el autoscroll de la galeria en contacto x ejemplo daria error xk no existe ahi
     if (document.body.classList.contains("page-home")) {
         initHomeSlideshow(); 
     } else if (document.body.classList.contains("page-gallery")) {
@@ -20,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //fancybox con innertial y draggable
+    // si el user clica un enlace (a) que tenga el atributo data-fancybox emtra en accion
+    // con caption personalizo el pie de foto, para que no se limite a usar el data-caption del enlace
+    // asi cuando abres la foto el pie de foto es el titulo con la descripcion que puse en galeria
     if (typeof Fancybox !== "undefined") {
         Fancybox.bind("[data-fancybox]", {
             caption: (fancybox, slide) => {
@@ -47,17 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// resto d paginas
-function initOriginalScript() {
-    const idText = document.getElementById("id-text");
-    if (idText) {
-        idText.addEventListener("click", () =>
-        alert("Has hecho clic en el subtítulo!")
-        );
-    }
-}
-
 // carrusel en loop infinito
+// uso GSAP aqui para crar este carrusel, para hacerlo bucle infinito coge todas las tarjetas de la galeria
+// (las 8 que hay de momento), las clona y las pone justo despues
 function initAutoScrollGallery() {
     if (typeof gsap === "undefined") {
         console.error("GSAP no se ha cargado correctamente.");
@@ -85,6 +89,9 @@ function initAutoScrollGallery() {
     const setWidth = cards.length * cardWidthWithGap;
     gsap.set(inner, { width: setWidth * 2, x: 0 }); 
 
+    // esta es la animacion: le digo que lo mueva el inner hacia la izquierda y lo que ocupa las tarjetas
+    // a velocidad constante y que lo repita infinitamente
+    // cuando la animacion termina transporta el inner a su posicion inicial al instante
     const autoScroll = gsap.to(inner, {
         x: -setWidth,
         duration: 30,
@@ -97,11 +104,11 @@ function initAutoScrollGallery() {
         }
     });
 
-    // pausa/reanudacion
+    // pausa/reanudacion: cuando le pasas el raton x encima para la animacion y cuando lo quitas reanuda
     gallery.addEventListener('mouseenter', () => autoScroll.pause());
     gallery.addEventListener('mouseleave', () => autoScroll.resume());
     
-    // moviles
+    // moviles: igual que antes pero cuando tocas la pantalla
     gallery.addEventListener('touchstart', () => autoScroll.pause());
     gallery.addEventListener('touchend', () => autoScroll.resume());
     
@@ -116,6 +123,7 @@ function initAutoScrollGallery() {
 }
 
 // slideshow index
+// esto es cuando en el index (inicio) le haces scroll, las animaciones
 function initHomeSlideshow() {
     const slideshow = document.querySelector(".slideshow");
     if (!slideshow) return; 
@@ -137,6 +145,7 @@ function initHomeSlideshow() {
     const PREV = -1;
     const SLIDE_DURATION = 1.5; 
 
+    // estas son las curvas de velocidad de la animacion para que se vean mas chulas y no tan estaticas
     CustomEase.create("textReveal", "0.77, 0, 0.175, 1");
     CustomEase.create("counterSlide", "0.25, 1, 0.5, 1");
     CustomEase.create("zoomIn", "0.16, 1, 0.3, 1");
@@ -147,6 +156,8 @@ function initHomeSlideshow() {
         return num < 10 ? `0${num}` : `${num}`;
     }
 
+    // este es el contador del index
+    // rellena el contador de numeros uno encima de otro, y con animateCounter lo animo usando gsap, animacion vertical hasta que el numero correcto qeude visible
     function initCounterStrip() {
         if (!counterStrip || !counterTotal) return;
         counterStrip.innerHTML = ""; 
@@ -174,6 +185,8 @@ function initHomeSlideshow() {
         });
     }
 
+    // gestiona que slide toca, isAnimating es como un boolean (true cuando empieza una animacion y false cuando termina)
+    // asi evitamos que el user pueda hacer scroll como un loco y romper o solapar las animaciones
     function navigate(direction) {
         if (isAnimating) return;
         const prevIndex = currentIndex;
@@ -185,6 +198,10 @@ function initHomeSlideshow() {
         performNavigation(prevIndex, currentIndex, direction);
     }
 
+    // con esto creamos la funcion que usamos arriba donde ocultamos el texto del slide actual haciendolo caer
+    // prepara el slide siguiente 
+    // anima el slide actual y el siguiente para que aparezca (bounceOut)
+    // anima el texto del nuevo slide (textReveal)
     function performNavigation(prevIndex, nextIndex, direction) {
         isAnimating = true;
         const currentSlide = slides[prevIndex];
@@ -224,6 +241,7 @@ function initHomeSlideshow() {
     const firstSlideTextLines = slides[0].querySelectorAll(".slide__text-line");
     gsap.to(firstSlideTextLines, { y: 0, opacity: 1, duration: 1.2, stagger: 0.1, delay: 0.5, ease: "textReveal" });
 
+    // escuchan la rueda del raton y el deslizamiento con el movil para llamar la funcion de perfomrNavigation y cambiar de slide
     let lastTime = 0;
     const throttleDelay = 1000; 
     slideshow.addEventListener("wheel", (e) => {

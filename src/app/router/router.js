@@ -1,7 +1,17 @@
+/* definimos todas las rutas (URL) de la web y qué debe hacer el server según el user vaya toqueteando cada cosa
+*/
+
+// importo express como un router (solo se encarga de gestionar rutas) y el kit de herramientas de brevo (el servicio que uso para enviar emails)
 const router = require("express").Router();
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 
-// GET para home
+// Uso metodos get para cuando el usuario clica en un enlace o escribe la ruta, y metodo post para el envio de datos en contacto
+
+/* GET para home: Como en el resto, cuando un user clica un enlace o accede por url como dije con res.render  le digo
+"busca en views (q la configure en index.js) un archivo que se llama index y muestralo"
+y de paso le pongo el titulito en la pestaña del navegador para saber que css concreto debe cargar (que eso lo hago con un ifelse en layout.pug)
+y asi con todo: galeria, contacto, error, gracias
+*/ 
 router.get("/", (req, res) => {
     res.render("index", { title: "Daut Tattoo - Inicio" });
 });
@@ -27,6 +37,12 @@ router.get("/gracias", (req, res) => {
 });
 
 // POST contacto
+/* Cuando el user envia datos con el metodo post en /contacto, le decimos que espere que el servicio de email responda
+Saca los datos (name email y message) del usuario (gracias a los middlewares urlencoded y express de index.js) y que me los muestre en consola
+luego le pongo el html para el email, xk con texto plano... no se, se me hace aburrido HAHAHAH
+sigo debajo del html del email xk es tan largo... lo hice usando uipath que tiene un creador de html integrado y vas viendo lo que haces y como queda HAHAHAH
+uipath es un software de rpa, pero tiene esa facilidad y digo pues mira, la uso xD
+*/
 router.post("/contacto", async (req, res) => {
     const{ name, email, message} = req.body;
     console.log("Datos recibidos: ", name, ", ", email, ", ", message);
@@ -102,11 +118,17 @@ router.post("/contacto", async (req, res) => {
     </body>
     `;
     
+    /* aqui tomamos la api de brevo de mi .env 
+    (por seguridad, solo tu y yo vemos las apis, xk en github esta con el .gitignore jeje)
+    */
     const client = SibApiV3Sdk.ApiClient.instance;
     const apiKey = client.authentications['api-key'];
     apiKey.apiKey = process.env.BREVO_API_KEY;
     const transacEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 
+    /* con senders y receivers definimos quien envia (el mio xk de momento pues pruebas, en adelante el de mi amigo) 
+    y quien recibe (que seria mi amigo pero x las pruebas hasta que me corrijas los recibo yo, o tu si quieres cambiarlo en .env para que lo veas todito HAHAA)
+    */
     const sender = {
         email: process.env.EMAIL_TO,
         name: "Web Daut Tattoo"
@@ -119,19 +141,29 @@ router.post("/contacto", async (req, res) => {
     const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); 
     sendSmtpEmail.sender = sender;
     sendSmtpEmail.to = receivers;
+    /* el replyto lo hice para que mi amigo cuando le de a responder en su gmail le abra directamente al email del cliente y no el suyo
+    y con subject le defino el asunto del email y le paso el html que cree en uipath 
+    */
     sendSmtpEmail.replyTo = { email: email, name: name };
     sendSmtpEmail.subject = `Nuevo mensaje de ${name} desde la web`;
     sendSmtpEmail.htmlContent = htmlEmail;
 
+    /*fan namber 1 de los try catch, los usaria en todo con todo pero me controlo HAHAHA 
+    con esto manejamos los errores, decimos que se espere hasta que brevo nos diga "ok enviado" o "error"
+    si se envia con exito nos lleva a la pagina gracias
+    si hay algun error lo metemos en el catch, que nos muestre en consola cual ha sido el error para identificarlo y poder trabajar con el
+    y que redirija al user a la pagina /error para que sepa q salio mal, y ya el decida si esperar viendo fotitos o reintentarlo
+    */
     try {
         await transacEmailApi.sendTransacEmail(sendSmtpEmail);
-        console.log("Email enviado con éxito a Daut (vía API)");
+        console.log("Email enviado con éxito a Daut");
         res.redirect("/gracias");
         
     } catch (error) {
-        console.error("¡ERROR al enviar el email (API)!:", error.response ? error.response.text : (error.message || error));
+        console.error("ERROR al enviar el email:", error.response ? error.response.text : (error.message || error));
         res.redirect("/error");
     }
 });
 
+// exoirtamos este archivo para que index.js pueda usarlo
 module.exports = router;

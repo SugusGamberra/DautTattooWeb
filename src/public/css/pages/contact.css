@@ -1,7 +1,11 @@
-¡.main-content {
+/* le doy estilo al formulario y sus campos*/
+
+.main-content {
     padding-top: 150px;
 }
 
+/* cajita principal con un tamaño maximo de ancho, la centra y le doy un color de fondo concreto
+para version d escritorio le puse ese tamaño fijo porque me rayaba que se viera tan chiquito HAHAHAH*/
 .form-container {
     max-width: 700px;
     height: 900px;
@@ -19,6 +23,8 @@
     margin-bottom: 2.5rem;
 }
 
+/* quito fondos, bordes, el campo de texto solo le pongo una linea de subrayado, el texto que escribe el user 
+es blanco y hago una animacion suave para el color del borde*/
 .form-group {
     margin-bottom: 2rem;
     position: relative;
@@ -52,12 +58,15 @@
     resize: none;
 }
 
+/* cuando un user hace clic en un campo quito el color por defecto, la linea de subrayado cambia al color
+de acento*/
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-acento);
 }
 
+/* estilizo mi boton de enviar, con fondo transparente y cuando le paso el raton por encima invierte los colores*/
 .form-button {
     display: inline-block;
     width: 100%;
@@ -79,7 +88,10 @@
     color: #111;
 }
 
-/* ESTILO PAL MOVIL*/
+/* ESTILO PAL MOVIL
+
+reduce el padding de arriba para que no este tan bajito el formulario, quito la altura fija y la dejo
+en auto y que ocupe el alto que necesite y reduzco la altura del text area para que no sea gigante*/
 
 @media (max-width: 768px) {
     .main-content {
